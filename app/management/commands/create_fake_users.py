@@ -22,8 +22,10 @@ class Command(BaseCommand):
                 raise CommandError("Option `--number=...` must be specified.")
         n = options['number']
         r = requests.get('https://randomuser.me/api/?results='+n)
+        r.raise_for_status()
         if r.status_code != 200:
-             self.stderr.writeself.stdout.write('Error! Wrong response on request: status_code='+r.status_code)
+            self.stderr.write('Error! Wrong response on request: status_code='+r.status_code)
+            r.raise_for_status()
         users = r.json()['results']
         for user in users:
             User.objects.create_user(
