@@ -18,4 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', 'app.views.index', name='index'),
+    url(r'^links/(?P<pk>\d+)/$', 'app.views.links', name='links'),
+    url(r'^!(?P<link>\w+)/$', 'app.views.info', name='info'),
 ]
