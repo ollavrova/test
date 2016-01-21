@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3> Submitted url info:</h3>
+
+    <i><a href="http://{{ shorted.long_url }}">http://{{ shorted.long_url }}</a></i>  from user
+    <i>{{ shorted.user.username }}</i>.
+
+{% endblock content %}

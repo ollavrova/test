@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}URL shortening system{% endblock title %}</title>
+    {% block extra_head %}{% endblock extra_head %}
+<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+<h1>URL shortening system</h1>
+<div class="media">
+    {% block content %}{% endblock content %}
+</div>
+</div>
+</body>
+</html>

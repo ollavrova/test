@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3> You have got short link</h3>
+
+    <i><a href="http://{{ shorted.long_url }}">{{ shorted.short_url }}</a></i>  for long link
+    <i>http://{{ shorted.long_url }}</i>!
+
+{% endblock content %}
