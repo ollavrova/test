@@ -1,6 +1,6 @@
-import datetime
 from optparse import make_option
 from django.contrib.auth.models import User
+from django.utils import timezone
 import requests
 from django.core.management import BaseCommand, CommandError
 
@@ -34,6 +34,6 @@ class Command(BaseCommand):
                 last_name=user['user']['name']['last'],
                 email=user['user']['email'],
                 password=user['user']['password'],
-                date_joined=datetime.datetime.today()
+                date_joined=timezone.now()
             )
         self.stdout.write('Created '+n+' users.')
