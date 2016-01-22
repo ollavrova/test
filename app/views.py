@@ -20,20 +20,19 @@ def index(request):
                 'short_url': shortener.short(url)[19:],  # exclude 'http://tinyurl.com/
                 'user': random.choice(User.objects.all())
             }
-            print short
             try:
-                shorted = Shorted.objects.get(long_url='http://'+short['long_url'])
+                shorted = Shorted.objects.get(long_url=short['long_url'])
             except ObjectDoesNotExist:
                 shorted = Shorted.objects.create(**short)
-            return HttpResponseRedirect('/links/'+str(shorted.id))
+            return HttpResponseRedirect('/links/'+str(shorted.short_url))
 
     return render(request, 'app/index.html', {'form': form})
 
 
-def links(request, pk):
-    if not id:
+def links(request, link):
+    if not link:
         raise Http404
-    shorted = Shorted.objects.get(id=pk)
+    shorted = Shorted.objects.get(short_url=link)
 
     return render(request, 'app/shorted.html', {'shorted': shorted})
 
@@ -41,8 +40,11 @@ def links(request, pk):
 def info(request, link):
     if not link:
         raise Http404
-    elif link[0] == '!':
+    if link[0] == '!':
         link = link[1:]
-    shorted = Shorted.objects.get(short_url=link)
-    return render(request, 'app/info.html', {'shorted': shorted})
+        shorted = Shorted.objects.get(short_url=link)
+        return render(request, 'app/info.html', {'shorted': shorted})
+    else:
+        shorted = Shorted.objects.get(short_url=link)
+        return HttpResponseRedirect('http://'+shorted.long_url)
 
